@@ -4,7 +4,7 @@ import Overview from "../Pages/Overview/Overview";
 import Contact from "../Pages/Contact/Contact";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
-import { PrivateRoute } from "./PrivateRoute";
+
 
 export const AppRouter = () => {
   return (

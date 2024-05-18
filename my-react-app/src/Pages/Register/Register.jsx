@@ -56,12 +56,7 @@ export default function Register() {
           {errors.password && <span className="text-red-500">La contraseña debe tener al menos 8 caracteres</span>}
         </div> 
 
-        <div>
-          <Subitulos label={"Confirma tu contraseña"} />
-          <div className='flex p-2'></div>
-          <input className="flex flex-col border-4 w-80" type="password" placeholder="Confirm password" {...register("confirmPassword", { required: true, minLength: 8 })} />
-          {errors.confirmPassword && <span className="text-red-500">La contraseña debe tener al menos 8 caracteres</span>}
-        </div> 
+     
 
         <input type="submit" className="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
       </form>

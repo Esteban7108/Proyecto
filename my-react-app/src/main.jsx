@@ -8,13 +8,13 @@ import { AuthProvider } from './Context/AuthContext';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider> 
-        <div className="flex justify-center items-center h-screen"> {/* Aplica las clases de Tailwind */}
-          <div className='w-screen'> {/* Ancho completo con color de fondo */}
+       
+        <div className="flex justify-center items-center h-full"> {/* Aplica las clases de Tailwind */}
+          <div className='w-full'> {/* Ancho completo con color de fondo */}
             <App />
           </div>
         </div>
-      </AuthProvider>
+     
     </BrowserRouter>
   </React.StrictMode>
 );

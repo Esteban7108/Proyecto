@@ -18,7 +18,7 @@ function Dark_mode() {
             <button className=" flex justify-center border-2 w-20" onClick={()=> darkModeHandler()}>
                 {
                     
-                    dark && <IoSunny className="text-white" />
+                    dark && <IoSunny />
 
                 }
                 {

@@ -4,14 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Titulos } from "../../Components/Titulos";
 import { Subitulos } from "../../Components/Subtitulos";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext"; 
 import loginUser from "../../Logic/loginUser";
+import Password from "../../Components/Password";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth(); 
   const [error, setError] = useState("");
-
   const {
     register,
     handleSubmit,
@@ -21,12 +19,14 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await loginUser(data.Email, data.password);
-      console.log(response); 
-      if (response === 'Success') {
-        navigate("/", { replace: true });
-        reset();
+      const response = await loginUser(data.email, data.password);
+      if (response && response.token) {
+        // Autenticación exitosa
+        localStorage.setItem("token", response.token); // Almacena el token en el almacenamiento local
+        navigate("/", { replace: true }); // Redirige al usuario a la página principal
+        reset(); // Limpia los campos del formulario
       } else {
+        // Credenciales incorrectas
         setError("Credenciales incorrectas");
       }
     } catch (error) {
@@ -46,12 +46,12 @@ export default function Login() {
           <Subitulos label={"Ingresa tu email"} />
           <div className="flex p-2"></div>
           <input
-            className={`flex flex-col border-2 rounded-md w-80 ${errors.Email ? "border-red-500" : ""}`}
+            className={`flex flex-col border-2 rounded-md w-80 ${errors.email ? "border-red-500" : ""}`}
             type="text"
             placeholder="Email"
-            {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
+            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
           />
-          {errors.Email && <span className="bg-red-100 text-red-500">Por favor ingresa un email válido.</span>}
+          {errors.email && <span className="bg-red-100 text-red-500">Por favor ingresa un email válido.</span>}
         </div>
         <div>
           <Subitulos label={"Ingresa tu contraseña"} />

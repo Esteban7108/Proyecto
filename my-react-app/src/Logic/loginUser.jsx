@@ -2,14 +2,14 @@ import axios from 'axios';
 
 const loginUser = async (email, password) => {
   try {
-    const response = await axios.post('http://localhost:3000/users/login', { // Corrige la URL de la solicitud
+    const response = await axios.post('http://localhost:3000/users/login', { 
       email: email,
       password: password
     });
-    return response.data; // Devuelve la respuesta del servidor, por ejemplo, 'Success' o 'Not allowed'
+    return response.data; 
   } catch (error) {
     console.error('Error:', error);
-    throw error; // Manejo de errores
+    throw error; 
   }
 }
 
