@@ -40,7 +40,7 @@ export default function Login() {
       <div className="border-4 border-black p-6 ">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-14 ">
         <div>
-          <Titulos label={"Bienvenido"} />
+          <Titulos label={"Bienvenidoaa"} />
         </div>
         <div>
           <Subitulos label={"Ingresa tu email"} />

@@ -18,7 +18,7 @@ const Home = () => {
             </div>
             <div className="ml-[250px] flex items-center flex-col w-full h-full"> {/* Ajusta el margen izquierdo para dar espacio a Navigation2 */}
               <div>
-                <h1 className="text-3xl font-bold underline dark:text-white">Home!</h1>
+                <h1 className="text-3xl font-bold underline dark:text-white">Homeaa!</h1>
               </div>
               <div className=" flex justify-center items-center "> {/* Agrega estas clases para centrar */}
                     <Tweets/>
