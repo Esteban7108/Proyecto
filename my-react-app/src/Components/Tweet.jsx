@@ -3,8 +3,7 @@ import { Tweet } from 'react-tweet'
 
 function Tweets(){
     return(
-        <div> 
-        
+        <div>        
             <Tweet id="1590919500089950211"/>
             <Tweet id="1790723225309118743"/>
             <Tweet id="1790169072988237897"/>

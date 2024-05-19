@@ -1,5 +1,4 @@
 
-
 import axios from "axios";
 
 const loginUser = async (email, password) => {
@@ -16,3 +15,4 @@ const loginUser = async (email, password) => {
 };
 
 export default loginUser;
+
