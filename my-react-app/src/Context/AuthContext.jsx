@@ -6,27 +6,31 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") === "true"
   );
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("accessToken") || null
+  );
 
   useEffect(() => {
-    // Obtener estado de autenticación al cargar el componente
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(loggedIn);
-  }, []); // Ejecutar solo una vez al cargar el componente
+  }, []);
 
-  const login = () => {
-    // Establecer estado de autenticación al iniciar sesión
+  const login = (token) => {
     setIsLoggedIn(true);
+    setAccessToken(token);
     localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("accessToken", token);
   };
 
   const logout = () => {
-    // Limpiar estado de autenticación al cerrar sesión
     setIsLoggedIn(false);
+    setAccessToken(null);
     localStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("accessToken");
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, accessToken, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
