@@ -1,16 +1,13 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Titulos } from "../../Components/Titulos";
-import { Subitulos } from "../../Components/Subtitulos";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 import loginUser from "../../Logic/loginUser";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth(); // Asegúrate de que useAuth no retorna undefined
+  const { login } = useAuth();
   const [error, setError] = useState("");
   const {
     register,
@@ -47,59 +44,67 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-20">
-      <div className="border-4 border-black p-6">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-14"
-        >
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="max-w-md w-full p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-4">
+          Bienvenido
+        </h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <Titulos label={"Bienvenido"} />
-          </div>
-          <div>
-            <Subitulos label={"Ingresa tu email"} />
-            <div className="flex p-2"></div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Email
+            </label>
             <input
-              className={`flex flex-col border-2 rounded-md w-80 ${
-                errors.Email ? "border-red-500" : ""
-              }`}
               type="text"
               placeholder="Email"
               {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
+              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                errors.Email ? "border-red-500" : ""
+              }`}
             />
             {errors.Email && (
-              <span className="bg-red-100 text-red-500">
+              <p className="mt-2 text-sm text-red-600">
                 Por favor ingresa un email válido.
-              </span>
+              </p>
             )}
           </div>
           <div>
-            <Subitulos label={"Ingresa tu contraseña"} />
-            <div className="flex p-2"></div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Contraseña
+            </label>
             <input
-              className={`flex flex-col border-2 rounded-md w-80 ${
+              type="password"
+              placeholder="Contraseña"
+              {...register("password", { required: true })}
+              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
                 errors.password ? "border-red-500" : ""
               }`}
-              type="password"
-              placeholder="Password"
-              {...register("password", { required: true })}
             />
             {errors.password && (
-              <span className="bg-red-100 text-red-500">
+              <p className="mt-2 text-sm text-red-600">
                 Por favor ingresa tu contraseña.
-              </span>
+              </p>
             )}
           </div>
-          {error && <p className="bg-red-100 text-red-500">{error}</p>}
-          <input
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          />
+          {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+          <div>
+            <button
+              type="submit"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Iniciar sesión
+            </button>
+          </div>
         </form>
-        <div className="flex flex-col gap-2 p-4 items-center">
-          <Subitulos label="¿No tienes una cuenta?" />
-          <Link to="/register">Da click aquí</Link>
-        </div>
+        <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+          ¿No tienes una cuenta?{" "}
+          <Link
+            to="/register"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Regístrate
+          </Link>
+        </p>
       </div>
     </div>
   );

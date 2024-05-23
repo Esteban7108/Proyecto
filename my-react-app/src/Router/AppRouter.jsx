@@ -5,6 +5,7 @@ import Contact from "../Pages/Contact/Contact";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "../Router/PrivateRoute";
+import PublicRoute from "../Router/publicRouter";
 
 export const AppRouter = () => {
   return (
@@ -17,8 +18,22 @@ export const AppRouter = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        }
+      />
       <Route
         path="/overview"
         element={
