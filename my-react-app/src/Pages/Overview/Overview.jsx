@@ -1,9 +1,10 @@
-import { PrivateRoute } from "../../Router/PrivateRoute"; // Importa PrivateRoute
+
 import { Navigation1 } from "../../Components/Navigation-menus/Navigation1";
 import { Navigation2 } from "../../Components/Navigation-menus/Navigation2";
 import { useMediaQuery } from '@mui/material';
-import Createtweet from "../../Components/Createtweet";
+import UserTweets from "../../Components/UserTweets";
 
+import Createtweet from "../../Components/Createtweet";
 
 const Overview = () => {
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
@@ -19,10 +20,12 @@ const Overview = () => {
             </div>
             <div className="ml-[250px] flex items-center flex-col w-full h-full"> {/* Ajusta el margen izquierdo para dar espacio a Navigation2 */}
               <div>
-                <h1 className="text-3xl font-bold underline dark:text-white">Overview!</h1>
+                <h1 className="text-3xl font-bold underline dark:text-white">Post you tweets!</h1>
+                <br></br>
               </div>
-              <div className=" flex justify-center items-center "> {/* Agrega estas clases para centrar */}
+              <div className=" flex justify-center items-center flex-col"> {/* Agrega estas clases para centrar */}
                     <Createtweet/>
+                    <UserTweets/>
               </div>
             </div>
           </div>
@@ -37,7 +40,8 @@ const Overview = () => {
             </div>
             <div className="flex justify-center items-center flex-col w-full"> 
               <div>
-                <h1 className="text-3xl font-bold underline dark:text-white">Home!</h1>
+                <h1 className="text-3xl font-bold underline dark:text-white">Post you tweets!</h1>
+                <br></br>
               </div>
               <div className=" h-[calc(100vh - 20px)] justify-center items-center"> {/* Agrega estas clases para centrar */}
                 <Createtweet/>

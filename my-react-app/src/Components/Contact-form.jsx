@@ -2,27 +2,34 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ContactForm() {
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
   const [editableUserId, setEditableUserId] = useState(null);
   const [editableValues, setEditableValues] = useState({ firstName: '', lastName: '', password: '' });
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/users');
-        setUsers(response.data);
+        // Obtén el ID del usuario del almacenamiento local
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+          throw new Error('User ID not found');
+        }
+
+        // Haz una solicitud GET al servidor para obtener la información del usuario
+        const response = await axios.get(`http://localhost:3000/edit-contact/${userId}`);
+        setUser(response.data);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching user:', error);
       }
     };
 
-    fetchUsers();
+    fetchUser();
   }, []);
 
-  const handleEditClick = (user) => {
-    setEditableUserId(user.id);
-    setEditableValues({ firstName: user.firstName, lastName: user.lastName, password: user.password });
+  const handleEditClick = (userData) => {
+    setEditableUserId(userData.id);
+    setEditableValues({ firstName: userData.firstName, lastName: userData.lastName, password: userData.password });
   };
 
   const handleChange = (e) => {
@@ -34,10 +41,8 @@ function ContactForm() {
   };
 
   const handleSave = (userId) => {
-    const updatedUsers = users.map((user) =>
-      user.id === userId ? { ...user, ...editableValues } : user
-    );
-    setUsers(updatedUsers);
+    const updatedUser = { ...user, ...editableValues };
+    setUser(updatedUser);
     setEditableUserId(null);
     setPasswordVisible(false);
   };
@@ -48,8 +53,8 @@ function ContactForm() {
 
   return (
     <div className='w-full dark:text-white'>
-      {users.map((user) => (
-        <div key={user.id}>
+      {user && (
+        <div>
           <div className='flex gap-20 justify-center'>
             <div className='flex gap-2'>
               <div className='flex p-7 border-4 rounded-xl'>
@@ -61,7 +66,7 @@ function ContactForm() {
                       name='firstName'
                       value={editableValues.firstName}
                       onChange={handleChange}
-                      className='text-4xl w-48 h-12 p-2' // Ajusta la clase aquí para cambiar dimensiones
+                      className='text-4xl w-48 h-12 p-2'
                     />
                   ) : (
                     <p className='text-4xl'>{user.firstName}</p>
@@ -84,7 +89,7 @@ function ContactForm() {
                       name='lastName'
                       value={editableValues.lastName}
                       onChange={handleChange}
-                      className='text-4xl w-48 h-12 p-2' // Ajusta la clase aquí para cambiar dimensiones
+                      className='text-4xl w-48 h-12 p-2'
                     />
                   ) : (
                     <p className='text-4xl'>{user.lastName}</p>
@@ -115,7 +120,7 @@ function ContactForm() {
                   type={passwordVisible ? 'text' : 'password'}
                   name='password'
                   value={user.password}
-                  className='text-4xl w-48 h-12 p-2 dark:bg-gray-900 ' // Ajusta la clase aquí para cambiar dimensiones
+                  className='text-4xl w-48 h-12 p-2 dark:bg-gray-900 '
                   readOnly
                 />
                 <button onClick={togglePasswordVisibility}>
@@ -129,16 +134,20 @@ function ContactForm() {
             </div>
           </div>
           {editableUserId === user.id && (
-            <div className='flex gap-20 justify-center mt-4'>
-              <button onClick={() => handleSave(user.id)} className='p-2 bg-blue-500 text-white rounded w-32 h-12'> {/* Ajusta la clase aquí para cambiar dimensiones */}
-                Save
-              </button>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
+  <div className='flex gap-20 justify-center mt-4'>
+    <button onClick={() => handleSave(user.id)} className='p-2 bg-blue-500 text-white rounded w-32 h-12'>
+      Save
+    </button>
+  </div>
+)}
+</div>
+
+)}
+</div>
+);
 }
+
+  
+
 
 export default ContactForm;

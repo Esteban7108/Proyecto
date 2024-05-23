@@ -28,6 +28,8 @@ export function Navigation2() {
     });
   };
 
+  
+
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[44rem] p-4 shadow-xl shadow-blue-gray-900/5 dark:text-white dark:border-solid dark:border-2 dark:border-white-600 border-solid border-2 border-black-600 ">
       <div className="mb-2 gap-6 flex justify-between dark:border-solid dark:border-2 dark:border-white-600 border-solid border-2 border-black-600 p-6 w-200">

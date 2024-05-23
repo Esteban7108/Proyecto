@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const Savetweets = async (tweetText) => {
+const Savetweets = async (tweetData) => {
   try {
-    const response = await axios.post('http://localhost:3000/tweets', { tweet: tweetText });
+    console.log('Sending tweet data:', tweetData);
+    const response = await axios.post('http://localhost:3000/tweets', tweetData);
     return response.data;
   } catch (error) {
+    console.error('Error posting tweet:', error);
     throw new Error('Error posting tweet');
   }
 };

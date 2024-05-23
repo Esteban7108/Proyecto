@@ -12,7 +12,9 @@ export function Navigation1(){
   };
 
   const onLogout = () => {
-    localStorage.removeItem('isLoggedIn'); // Borra el estado de autenticación al cerrar sesión
+   
+localStorage.clear();
+
     navigate("/login", {
       replace: true,
     });

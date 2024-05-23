@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ import loginUser from "../../Logic/loginUser";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth(); // Asegúrate de que useAuth no retorna undefined
+  const { login } = useAuth();
   const [error, setError] = useState("");
   const {
     register,
@@ -19,29 +18,25 @@ export default function Login() {
     reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    if (data.Email === "admin@admin.com" && data.password === "admin") {
-      const adminAccessToken = "adminAccessToken";
-      login(adminAccessToken);
-      navigate("/", { replace: true });
-      reset();
-      return;
-    }
+  const handleSuccessfulLogin = (userId, userName, token) => {
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("userName", userName);
+    localStorage.setItem("token", token);
+  };
 
+  const onSubmit = async (data) => {
     try {
       const response = await loginUser(data.Email, data.password);
       if (response.accessToken) {
         login(response.accessToken);
+        handleSuccessfulLogin(response.userId, response.userName, response.accessToken);
         navigate("/", { replace: true });
         reset();
       } else {
         setError(response.message || "Credenciales incorrectas");
       }
     } catch (error) {
-      console.error(
-        "Error al iniciar sesión:",
-        error.response || error.message
-      );
+      console.error("Error al iniciar sesión:", error.response || error.message);
       setError("Ocurrió un error al iniciar sesión");
     }
   };
@@ -49,10 +44,7 @@ export default function Login() {
   return (
     <div className="flex flex-col items-center justify-center p-20">
       <div className="border-4 border-black p-6">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-14"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-14">
           <div>
             <Titulos label={"Bienvenido"} />
           </div>
