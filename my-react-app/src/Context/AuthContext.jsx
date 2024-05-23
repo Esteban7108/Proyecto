@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsLoggedIn(false);
     setAccessToken(null);
-    localStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("accessToken");
   };
 
