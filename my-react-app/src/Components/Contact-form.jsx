@@ -10,13 +10,11 @@ function ContactForm() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // Obtén el ID del usuario del almacenamiento local
         const userId = localStorage.getItem('userId');
         if (!userId) {
           throw new Error('User ID not found');
         }
 
-        // Haz una solicitud GET al servidor para obtener la información del usuario
         const response = await axios.get(`http://localhost:3000/edit-contact/${userId}`);
         setUser(response.data);
       } catch (error) {
@@ -40,11 +38,16 @@ function ContactForm() {
     }));
   };
 
-  const handleSave = (userId) => {
-    const updatedUser = { ...user, ...editableValues };
-    setUser(updatedUser);
-    setEditableUserId(null);
-    setPasswordVisible(false);
+  const handleSave = async (userId) => {
+    try {
+      const updatedUser = { ...user, ...editableValues };
+      await axios.put(`http://localhost:3000/update-contact/${userId}`, updatedUser); // Asegúrate de que esta ruta exista en tu backend
+      setUser(updatedUser);
+      setEditableUserId(null);
+      setPasswordVisible(false);
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -134,20 +137,16 @@ function ContactForm() {
             </div>
           </div>
           {editableUserId === user.id && (
-  <div className='flex gap-20 justify-center mt-4'>
-    <button onClick={() => handleSave(user.id)} className='p-2 bg-blue-500 text-white rounded w-32 h-12'>
-      Save
-    </button>
-  </div>
-)}
-</div>
-
-)}
-</div>
-);
+            <div className='flex gap-20 justify-center mt-4'>
+              <button onClick={() => handleSave(user.id)} className='p-2 bg-blue-500 text-white rounded w-32 h-12'>
+                Save
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
-
-  
-
 
 export default ContactForm;

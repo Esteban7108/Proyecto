@@ -34,14 +34,14 @@ export default function Login() {
         setError(response.message || "Credenciales incorrectas");
       }
     } catch (error) {
-      console.error("Error al iniciar sesión:", error.response || error.message);
-      setError("Ocurrió un error al iniciar sesión");
+      console.error("Error al iniciar sesión:", error);
+      setError(error.message || "Ocurrió un error al iniciar sesión");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="max-w-md w-full p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+    <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-600 dark:bg-gray-900">
+      <div className="p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-4">
           Bienvenido
         </h2>

@@ -20,9 +20,11 @@ import { useAuth } from "../../Context/AuthContext";
 export function Navigation2() {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const userName = localStorage.getItem('userName');
 
   const onLogout = () => {
     logout();
+    localStorage.clear();
     navigate("/login", {
       replace: true,
     });
@@ -45,24 +47,17 @@ export function Navigation2() {
           <Dark_mode />
         </div>
 
-        {/* Profile Section */}
         <div className="flex items-center mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-          <Avatar
-            src="/path/to/avatar.jpg"
-            alt="User Avatar"
-            className="h-10 w-10 mr-4"
-          />
+          
           <div>
             <Typography
               variant="h6"
               color="blue-gray"
               className="dark:text-white"
             >
-              Usuario
+              Hola {userName}
             </Typography>
-            <Typography variant="small" className="dark:text-gray-300">
-              user@example.com
-            </Typography>
+            
           </div>
         </div>
 
@@ -100,10 +95,7 @@ export function Navigation2() {
               Settings
             </ListItem>
           </a>
-        </List>
-      </div>
-
-      {/* Logout Section */}
+          {/* Logout Section */}
       <button onClick={onLogout} className="w-full text-left">
         <ListItem className="flex items-center gap-4 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
           <ListItemPrefix>
@@ -112,6 +104,10 @@ export function Navigation2() {
           Log Out
         </ListItem>
       </button>
+        </List>
+      </div>
+
+      
     </Card>
   );
 }
