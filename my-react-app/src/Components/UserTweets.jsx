@@ -11,7 +11,7 @@ const UserTweets = () => {
   useEffect(() => {
     const fetchTweets = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/tweets/${userId}`);
+        const response = await axios.get(`https://back-avances-phi.vercel.app/tweets/${userId}`);
         setTweets(response.data);
       } catch (error) {
         console.error('Error fetching user tweets:', error);
@@ -41,7 +41,7 @@ const UserTweets = () => {
   const handleSaveClick = async () => {
     try {
       const updatedTweet = { tweet: editContent, userId };
-      await axios.put(`http://localhost:3000/tweets/${editingTweet.id}`, updatedTweet);
+      await axios.put(`https://back-avances-phi.vercel.app/tweets/${editingTweet.id}`, updatedTweet);
       setTweets(tweets.map(tweet => (tweet.id === editingTweet.id ? { ...tweet, tweet: editContent } : tweet)));
       setEditingTweet(null);
       setEditContent('');
@@ -57,7 +57,7 @@ const UserTweets = () => {
 
   const handleDeleteClick = async (tweetId) => {
     try {
-      await axios.delete(`http://localhost:3000/tweets/${tweetId}`, { data: { userId } });
+      await axios.delete(`https://back-avances-phi.vercel.app/tweets/${tweetId}`, { data: { userId } });
       setTweets(tweets.filter(tweet => tweet.id !== tweetId));
     } catch (error) {
       console.error('Error deleting tweet:', error);

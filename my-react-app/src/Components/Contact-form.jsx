@@ -15,7 +15,9 @@ function ContactForm() {
           throw new Error('User ID not found');
         }
 
-        const response = await axios.get(`http://localhost:3000/edit-contact/${userId}`);
+        const response = await axios.get(
+          `https://back-avances-phi.vercel.app/edit-contact/${userId}`
+        );
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching user:', error);
@@ -41,7 +43,7 @@ function ContactForm() {
   const handleSave = async (userId) => {
     try {
       const updatedUser = { ...user, ...editableValues };
-      await axios.put(`http://localhost:3000/update-contact/${userId}`, updatedUser); // Asegúrate de que esta ruta exista en tu backend
+      await axios.put(`https://localhost:3000/update-contact/${userId}`, updatedUser); // Asegúrate de que esta ruta exista en tu backend
       setUser(updatedUser);
       setEditableUserId(null);
       setPasswordVisible(false);

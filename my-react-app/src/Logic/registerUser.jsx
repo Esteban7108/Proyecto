@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const registerUser = async (data) => {
   try {
-    const response = await axios.post('http://localhost:3000/users', data);
+    const response = await axios.post('https://back-avances-phi.vercel.app/users', data);
     return response.data;
   } catch (error) {
     if (error.response) {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const loginUser = async (email, password) => {
   try {
-    const response = await axios.post('http://localhost:3000/login', {
+    const response = await axios.post('https://back-avances-phi.vercel.app/login', {
       email,
       password,
     });
