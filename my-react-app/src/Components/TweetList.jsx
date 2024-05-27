@@ -31,13 +31,18 @@ const TweetList = () => {
   };
 
   return (
-    <div className='flex flex-col gap-8'>
+    <div className='flex flex-col gap-8 '>
       {tweets.map(tweet => (
         <div key={tweet.id}>
-          <div className='flex flex-col gap-5 border-2'>
-            <div className='p-2'>
+          <div className='flex flex-col gap-5 border-2 bg-white rounded-lg'>
+            <div className='p-2 flex justify-between '>
+              <div>
+                <br></br>
               <p>{tweet.tweet}</p>
+              </div>
+              <div className='flex'>
               <p className='text-sm text-gray-500'>{formatDate(tweet.timestamp)}</p>
+              </div>
             </div>
             <div className='flex gap-80 bg-blue-200 w-100'>
               <p>@{tweet.userName}</p>

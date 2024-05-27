@@ -20,9 +20,11 @@ import { useAuth } from "../../Context/AuthContext";
 export function Navigation2() {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const userName = localStorage.getItem("userName");
 
   const onLogout = () => {
     logout();
+    localStorage.clear();
     navigate("/login", {
       replace: true,
     });
@@ -44,8 +46,8 @@ export function Navigation2() {
         </div>
 
         {/* Profile Section */}
-        <div className="flex items-center justify-center mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-          <div className="h-10 w-10">
+        <div className="flex flex-col items-center justify-center mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+          <div className="h-10 w-10 mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -61,6 +63,13 @@ export function Navigation2() {
               />
             </svg>
           </div>
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="dark:text-white text-center"
+          >
+            Hola {userName}
+          </Typography>
         </div>
 
         {/* Navigation Links */}

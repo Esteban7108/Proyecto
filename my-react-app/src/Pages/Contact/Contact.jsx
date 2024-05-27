@@ -8,7 +8,7 @@ const Contact = () => {
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
 
   return (
-    <div className="p-3 dark:bg-gray-900 w-screen h-screen flex ">
+    <div className="p-3 dark:bg-gray-900 w-screen h-full flex ">
  
       {isLargeScreen && (
         <>

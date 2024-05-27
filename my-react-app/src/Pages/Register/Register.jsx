@@ -6,7 +6,7 @@ import registerUser from "../../Logic/registerUser";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  
   const [error, setError] = useState("");
   const {
     register,
@@ -18,9 +18,10 @@ export default function Register() {
   const onSubmit = async (data) => {
     try {
       const response = await registerUser(data);
-      if (response.accessToken) {
-        login(response.accessToken);
-        navigate("/", { replace: true });
+      if (response.userId) {
+     
+       
+        navigate("/login");
         reset();
       } else {
         setError(response.message || "Error al registrarse");
@@ -32,7 +33,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen dark:bg-gray-900">
       <div className="max-w-md w-full p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-4">
           Regístrate
